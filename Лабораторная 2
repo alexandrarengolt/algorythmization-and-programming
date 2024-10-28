@@ -1,0 +1,101 @@
+//задание 1
+using System;
+class HelloWorld {
+  static void Main() 
+    {
+      
+    int a = Convert.ToInt32(Console.ReadLine());
+    int cnt = 0;
+    int first = Convert.ToInt32(Console.ReadLine());
+    int second= Convert.ToInt32(Console.ReadLine());
+    int third = Convert.ToInt32(Console.ReadLine());
+    if (first < second && second < third)
+    {
+      cnt++;
+    }
+    for (int i = 0; i < a-3;i++)
+    {
+      int num = Convert.ToInt32(Console.ReadLine());
+      first = second;
+      second = third;
+      third = num;
+      if (first < second && second < third)
+      {
+          cnt++;
+      }
+    }
+    Console.WriteLine(cnt);
+    }
+}
+
+    
+    
+    
+
+//задание 2
+using System;
+class HelloWorld {
+  static void Main() {
+    int a = Convert.ToInt32(Console.ReadLine());
+    int cnt = 0;
+    for (int i =0; i<a; i++)
+    {
+        int s=Convert.ToInt32(Console.ReadLine());
+        s = Math.Abs(s);
+        if (s%10==2)
+        {
+            cnt++;
+        }
+        
+    }
+       Console.WriteLine (cnt);
+    }
+  }
+
+//задание 3
+using System;
+class HelloWorld {
+  static void Main() {
+    int a = Convert.ToInt32(Console.ReadLine());
+    int first = -100000;
+    int vtoroi = -1000;
+    for (int i = 0; i<a; i++)
+    {
+        int s=Convert.ToInt32(Console.ReadLine());
+        if (s>=first)
+        {
+            vtoroi=first;
+            first=s;
+        }
+        else 
+        { 
+            vtoroi=Math.Max(s,vtoroi);
+        }
+    }
+       Console.WriteLine (vtoroi);
+    }
+  }
+
+//задание 4
+using System;
+class HelloWorld {
+  static void Main() {
+    int a = Convert.ToInt32(Console.ReadLine());
+    int cnt = 0 ;
+    int mcnt = 0;
+    for (int i = 0; i<a; i++)
+    {
+        int s=Convert.ToInt32(Console.ReadLine());
+        if (s%2==0)
+        {
+            cnt++;
+        }
+        else 
+        { 
+            cnt=0;
+        }
+        mcnt=Math.Max(cnt,mcnt);
+    }
+       Console.WriteLine (mcnt);
+    }
+  }
