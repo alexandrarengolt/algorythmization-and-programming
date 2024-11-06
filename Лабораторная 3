@@ -1,0 +1,127 @@
+//Задачка 1
+
+using System;
+class HelloWorld {
+  static void Main() {
+    //ввести к-во элементов
+    Console.WriteLine("Введите количество элементов");
+    int a = Convert.ToInt32(Console.ReadLine());
+    //длины текущей и макс.последоватет-й
+    int cnt = 0 ;
+    int mcnt = 0;
+    //текущий элемент 
+    int cur;
+    int prev = 0;
+    //получаем первый элемент отдельно
+    Console.WriteLine("Введите элементы");
+    prev = Convert.ToInt32(Console.ReadLine());
+    cnt++;
+    //идём по последовательности и сравниваем элементы
+    for (int i = 1; i<a; i++)
+    {
+    cur = Convert.ToInt32(Console.ReadLine());
+    if (cur==prev) {
+        cnt++;
+    }
+    else //если элемент не равен предыдущему - прикрываем лавочку и начинаем сначала,запомнив макс.значение
+    {
+        if (cnt>mcnt)
+        {
+            mcnt=cnt;
+        }
+        cnt = 1;//сбрасываем счётчик
+        prev = cur;
+    }
+    }
+    if (cnt>mcnt) //опять ползём по последовательности
+        {
+            mcnt=cnt;
+        }
+       Console.WriteLine ("Длина " + mcnt);
+    }
+  }
+
+//Задачка 2
+using System;
+
+class HelloWorld {
+    static void Main() {
+        // Ввод количества элементов
+        Console.WriteLine("Введите количество элементов");
+        int n = Convert.ToInt32(Console.ReadLine());
+        int cnt = 0;
+        int mincnt = 1000000; // финт ушами
+        int cur;
+
+        Console.WriteLine("Введите элементы");
+
+        for (int i = 0; i < n; i++) {
+            cur = Convert.ToInt32(Console.ReadLine());
+
+            if (cur % 2 == 0) { // Проверка на четность
+                cnt++;
+            } else {
+                // Если встречаем нечетный элемент, проверяем мин. длину
+                if (cnt > 0 && cnt < mincnt) {
+                    mincnt = cnt;
+                }
+                cnt = 0; // Сбрасываем счетчик 
+            }
+        }
+
+        
+        if (cnt > 0 && cnt < mincnt) {
+            mincnt = cnt;
+        }
+
+        // Если вдруг нет четных
+        if (mincnt == 1000000) {
+            Console.WriteLine("0");
+        } else {
+            Console.WriteLine("Минимальная длина " + mincnt);
+        }
+    }
+}
+
+//Задачка 3
+using System;
+
+class HelloWorld {
+    static void Main() {
+        Console.WriteLine("Введите количество элементов");
+        int n = Convert.ToInt32(Console.ReadLine());
+        int cnt = 0;
+        int mcnt = -100000000; // Устанавливаем максимальное значение
+        int cur;
+
+        Console.WriteLine("Введите элементы");
+
+        for (int i = 0; i < n; i++) {
+            cur = Convert.ToInt32(Console.ReadLine());
+
+            if (cur % 2 == 0) { // Проверка на четность
+                cnt++;
+            } else {
+                // Если встречаем нечетный элемент, проверяем макс. длину
+                if (cnt > 0 && cnt > mcnt) {
+                    mcnt = cnt;
+                }
+                cnt = 0; // Сбрасываем счетчик 
+            }
+        }
+
+        
+        if (cnt > 0 && cnt > mcnt) {
+            mcnt = cnt;
+        }
+
+        // Если вдруг нет четных
+        if (mcnt == -100000000) {
+            Console.WriteLine("0");
+        } else {
+            Console.WriteLine("Максммальная длина " + mcnt);
+        }
+    }
+}
+    
+
