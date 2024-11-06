@@ -46,7 +46,6 @@ using System;
 
 class HelloWorld {
     static void Main() {
-        // Ввод количества элементов
         Console.WriteLine("Введите количество элементов");
         int n = Convert.ToInt32(Console.ReadLine());
         int cnt = 0;
@@ -58,14 +57,14 @@ class HelloWorld {
         for (int i = 0; i < n; i++) {
             cur = Convert.ToInt32(Console.ReadLine());
 
-            if (cur % 2 == 0) { // Проверка на четность
+            if (cur % 2 == 0) { // проверка на четность
                 cnt++;
             } else {
-                // Если встречаем нечетный элемент, проверяем мин. длину
+                // если встречаем нечетный элемент, проверяем мин. длину
                 if (cnt > 0 && cnt < mincnt) {
                     mincnt = cnt;
                 }
-                cnt = 0; // Сбрасываем счетчик 
+                cnt = 0; // сбрасываем счетчик 
             }
         }
 
@@ -74,7 +73,7 @@ class HelloWorld {
             mincnt = cnt;
         }
 
-        // Если вдруг нет четных
+        // если вдруг нет четных
         if (mincnt == 1000000) {
             Console.WriteLine("0");
         } else {
@@ -91,7 +90,7 @@ class HelloWorld {
         Console.WriteLine("Введите количество элементов");
         int n = Convert.ToInt32(Console.ReadLine());
         int cnt = 0;
-        int mcnt = -100000000; // Устанавливаем максимальное значение
+        int mcnt = -100000000; 
         int cur;
 
         Console.WriteLine("Введите элементы");
@@ -99,14 +98,14 @@ class HelloWorld {
         for (int i = 0; i < n; i++) {
             cur = Convert.ToInt32(Console.ReadLine());
 
-            if (cur % 2 == 0) { // Проверка на четность
+            if (cur % 2 == 0) { // проверка на четность
                 cnt++;
             } else {
-                // Если встречаем нечетный элемент, проверяем макс. длину
+                // если встречаем нечетный элемент, проверяем макс. длину
                 if (cnt > 0 && cnt > mcnt) {
                     mcnt = cnt;
                 }
-                cnt = 0; // Сбрасываем счетчик 
+                cnt = 0; // сбрасываем счетчик 
             }
         }
 
@@ -115,7 +114,7 @@ class HelloWorld {
             mcnt = cnt;
         }
 
-        // Если вдруг нет четных
+        // если вдруг нет четных
         if (mcnt == -100000000) {
             Console.WriteLine("0");
         } else {
