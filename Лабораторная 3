@@ -83,7 +83,9 @@ class HelloWorld {
 }
 
 //Задачка 3
-using System;  
+using System; 
+using System.ComponentModel.DataAnnotations; 
+using System.Reflection.Emit;
 
 class HelloWorld 
 { 
