@@ -1,0 +1,262 @@
+//Задача Угадай число
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1 
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // Считывание
+            StreamReader rdr = new StreamReader("C:\Users\Пользователь\Desktop\РГР\input_s1_01.txt");
+            int count = System.IO.File.ReadAllLines("C:\\Users\Пользователь\Desktop\РГР\input_s1_01.txt").Length;
+            string[] lnArr = new string[count];
+            string line = rdr.ReadLine();
+            lnArr[0] = Convert.ToString('x');
+            for (int i = 1; i < count; i++)
+            {
+                line = rdr.ReadLine();
+                lnArr[i] = line;
+            }
+            Console.WriteLine("[{0}]", string.Join(", ", lnArr));
+
+            int number;
+            int cntX = 1;
+            int numRes = 0;
+
+            for (int i = 1; i < count - 1; i++)
+            {
+                char operand = Convert.ToChar(lnArr[i].Split(' ')[0]);
+                string t = lineArr[i].Split(' ')[1];
+                if (t != "x")
+                {
+                    number = Convert.ToInt32(temp);
+                    if (operand == '+') { numRes += number; }
+                    if (operand == '*') { numRes *= number; cntX *= number; }
+                    if (operand == '-') { numRes -= number; }
+                }
+                else
+                {
+                    if (operand == '+') { cntX += 1; }
+                    if (operand == '-') { cntX -= 1; }
+                }
+
+            }
+            Console.WriteLine(numRes);
+            Console.WriteLine(cntX);
+
+            int result = (Convert.ToInt32(lnArr[lnArr.Length - 1]) - numRes) / cntX;
+            Console.WriteLine($"Результат {result}");
+        }
+    }
+}
+//Задача Идентификация производства
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1 
+{
+
+    internal class Program
+    {
+        
+        static void Main(string[] args)
+        {
+            Console.Write("Начальная дата: ");
+            string line = Console.ReadLine();
+            string[] arr = line.Split(' ');
+            int year = Convert.ToInt32(arr[0]);
+            int month = Convert.ToInt32(arr[1]);
+            int day = Convert.ToInt32(arr[2]);
+            DateTrm date = new DateTrm (year, month, day);
+
+            Console.Write("Конечная дата: ");
+            string secline = Console.ReadLine();
+            string[] secarr = secline.Split(' ');
+            int syear = Convert.ToInt32(secarr[0]);
+            int smonth = Convert.ToInt32(secarr[1]);
+            int sday = Convert.ToInt32(secarr[2]);
+            DateTrm sdate = new DateTrm (syear, smonth, sday);
+            Console.Write("Временной промежуток между началом и концом: ");   
+            int a = sdate.Subtract(date).Days +1; //считаем сколько прошло
+            Console.WriteLine(a);
+
+            Console.Write("Количество продукции за первый день: ");
+            int b = Convert.ToInt32(Console.ReadLine()); 
+
+            if ( a<1 || a>6000)
+            {
+                Console.WriteLine("Промежуток не превышает 60000!");
+                return;
+            }
+            int c = (a / 2) * ((2 * b) + a - 1); 
+            Console.WriteLine($"Итого: {c}");
+
+
+        }
+
+
+    }
+}
+//Задача Зельеваренье
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1 
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+        const int maxActs = 100; // ограничение по действиям
+        string[][] acts = new string[maxActs][];
+        int actsCount = 0; 
+        string start = "";
+
+        Console.WriteLine("Введите действия('END'в конце ввода):");
+
+        while (true)
+        {
+            string act = Console.ReadLine();
+
+            if (act.Equals("END", StringComparison.OrdinalIgnoreCase))
+            {
+                break; // Завершаем ввод при вводе "END"
+            }
+
+            // Задаём действие
+            string[] prt = act.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (prt.Length == 0)
+            {
+                Console.WriteLine("Введите команду и ингредиенты, которые хотите использовать:");
+                continue;
+            }
+
+            string comm = prt[0]; // Команда
+            string[] stuff = new string[prt.Length - 1]; // Ингредиенты
+            Array.Copy(prt, 1, stuff, 0, prt.Length - 1);
+
+            // Сохраняем команду и ингредиенты в массив действий
+            if (actsCount < maxActs)
+            {
+                acts[actsCount] = new string[stuff.Length + 1];
+                acts[actsCount][0] = comm; // Сохраняем команду
+                Array.Copy(stuff, 0, acts[actsCount], 1, stuff.Length); // Копируем ингредиенты
+                actsCount++;
+            }
+            else
+            {
+                Console.WriteLine("Превышен лимит действий.");
+                continue;
+            }
+        }
+
+        // Создаем заклинание
+        if (actsCount > 0)
+        {
+            string spell = string.Empty;
+            for (int i = 0; i < actsCount; i++)
+            {
+                string command = acts[i][0].ToUpper(); // Команда 
+                string  = string.Join("", acts[i], 1, acts[i].Length - 1); // Ингредиенты 
+
+                switch (command)
+                {
+                    case "MIX":
+                        spell += stuff2 + "XM";
+                        start += "MX";
+                        break;
+                    case "WATER":
+                        spell += stuff2 + "TW";
+                        start += "WT";
+                        break;
+                    case "DUST":
+                        spell += stuff2 + "TD";
+                        start += "DT"; 
+                        break;
+                    case "FIRE":
+                        spell += stuff2 + "RF";
+                        start += "FR";
+                        break;
+                    default:
+                        Console.WriteLine("Неизвестная команда: " + command);
+                        break;
+                }
+            }
+
+            spell = start + spell;
+            Console.WriteLine($"Заклинание: {spell}");
+        }
+        else
+        {
+            Console.WriteLine("Вы ничего не ввели.");
+        }
+    }
+}
+
+//Задача Упаковки молока
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1 
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            StreamReader rdr = new StreamReader("C:\Users\Пользователь\Desktop\РГР\Упаковки молока\input5.txt");
+            int firline = Convert.ToInt32(rdr.ReadLine());
+            double res = 10000;
+            int cnt = 0;
+            for (int i = 0; i < firline; i++)
+            {
+                string line = rdr.ReadLine();
+                string[] varArr = line.Split(' ');
+                int x1 = int.Parse(varArr[0]);
+                int y1 = int.Parse(varArr[1]);
+                int z1 = int.Parse(varArr[2]);
+                int x2 = int.Parse(varArr[3]);
+                int y2 = int.Parse(varArr[4]);
+                int z2 = int.Parse(varArr[5]);
+                double f1 = double.Parse(varArr[6], CultureInfo.InvariantCulture);
+                double f2 = double.Parse(varArr[7], CultureInfo.InvariantCulture);
+                double s1 = 2 * (x1 * y1 + y1 * z1 + x1 * z1);
+                double s2 = 2 * (x2 * y2 + y2 * z2 + x2 * z2);
+                double k1 = x1 * y1 * z1;
+                double k2 = x2 * y2 * z2;
+
+                double price = (-f1 + (s1 * f2) / s2) / (-((k1 - s1) / 1000) + (s1 * ((k2 - s2) / 1000)) / s2);
+
+                if (price < res)
+                {
+                    res = Math.Min(res, price);
+                    cnt = i + 1;
+                }
+            }
+            Console.WriteLine($"{cnt} {Math.Round(res, 2)}");
+        }
+    }
+}
