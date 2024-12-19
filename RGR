@@ -55,7 +55,7 @@ namespace ConsoleApp1
         }
     }
 }
-//Задача Идентификация производства
+//Задача Интенсификация производства
 using System;
 using System.Collections.Generic;
 using System.IO;
