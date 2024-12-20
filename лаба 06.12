@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+internal class Program
+{
+    
+    private static void Main(string[] args)
+    {
+        Nums numbers=new Nums();
+
+        Console.Write("Ввод: "); //забираем 2 числа
+        bool per1=int.TryParse(Console.ReadLine(), out int a);
+        bool per2=int.TryParse(Console.ReadLine(), out int b);
+        if(per1 && per2)numbers=new Nums(m,n); //если оба числа введены правильно
+        else if(per1) numbers=new Nums(m); //если только первое число введено правильно
+        else if(per2) numbers=new Nums(n);//если только второе число введено правильно
+
+        numbers.Add();
+        numbers.Increase();
+        numbers.Divide();
+        numbers.Subtract();
+    class Nums{
+    private int x,y;
+    public Nums(){
+        x=0;
+        y=0;
+    }
+    public Nums(int x){
+        this.x=x;
+        y=0;
+    }
+    public Nums(int x, int y){
+        this.x=x;
+        this.y=y;
+    }
+
+    public void Add(){
+        Console.WriteLine("Сумма: "+(x+y));
+    }
+    public void Increase(){
+        Console.WriteLine("Произведение: "+(x*y));
+    }
+    public void Divide(){
+        if(y!=0)Console.WriteLine("Частное: "+(x/y));
+        else Console.WriteLine("Деление невозможно"); //на 0 не делим
+    }
+    public void Subtract(){
+        Console.WriteLine("Разность: "+(x-y));
+        Console.WriteLine("Разность: "+(y-x));
+    }
+}
+    }
+}
+}
