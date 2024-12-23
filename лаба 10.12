@@ -1,0 +1,137 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+         static Cars[] array = [];
+
+        
+        private static void Main(string[] args)
+        {
+            // Запрашиваем у пользователя количество машин
+            Console.Write("Введите количество машин: ");
+
+            // Читаем ввод пользователя и преобразуем его в целое число
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            // Инициализируем массив машин, задавая ему размер, полученный от пользователя
+            array = new Cars[n];
+
+            
+            while (true)
+            {
+                // Очищаем консоль
+                Console.Clear();
+
+                // Выводим меню на экран
+                Console.WriteLine("———<Меню>———");
+                Console.WriteLine($"1.Внести данные о машине");
+                Console.WriteLine("2.Вывести сведения о машинах");
+                Console.WriteLine("3.Выйти\n");
+
+                // Читаем выбор пользователя в виде строки
+                string s = "" + Console.ReadLine();
+
+                // Обработка выбора пользователя
+                if (s == "1")
+                {
+                    
+                    Console.Write($"Введите номер ячейки, данные котрой хотите изменить (доступно 1-{array.Length} ячеек): ");
+                    s = "" + Console.ReadLine();
+
+                    // Преобразуем номер ячейки в целое число (уменьшаем на 1, так как нумерация ячеек начинается с 0)
+                    n = Convert.ToInt32(s) - 1;
+
+                    // Проверяем, что введенный номер ячейки корректен
+                    if (n < 0 || n >= array.Length)
+                        Console.WriteLine("Несуществующая ячейка");
+                    else
+                    {
+                        // Запрашиваем у пользователя характеристики машины
+                        Console.Write("Введите характеристики (марка, год, цвет, страна-изготовитель): ");
+                        s = "" + Console.ReadLine();
+
+                        // Создаем новый объект машины и сохраняем его в массиве
+                        array[n] = new Cars(s.Split(" "));
+                    }
+                }
+                else if (s == "2")
+                {
+                   
+                    Console.Write("По какому критерию нужно отсортировать машины? (марка, год, цвет, страна): ");
+                    s = "" + Console.ReadLine();
+
+                    // Разбиваем строку параметров на массив строк
+                    string[] a = s.Split(" ");
+
+                    // Перебираем все машины в массиве
+                    foreach (Cars i in array)
+                    {
+                        // Пропускаем пустые ячейки массива
+                        if (i == null) continue;
+
+                        // Флаг для проверки соответствия машины параметрам фильтрации
+                        bool t = true;
+                        // Проверяем совпадение марки, если параметр задан и не равен "-"
+                        if (!(a[0] == "-" || a[0] == i.brand)) t = false;
+                        
+                        if (!(a[1] == "-" || a[1] == i.date)) t = false;
+                        
+                        if (!(a[2] == "-" || a[2] == i.color)) t = false;
+                        // Проверяем совпадение страны
+                        if (!(a[3] == "-" || a[3] == i.country)) t = false;
+
+                        // Если машина соответствует всем параметрам, то выводим ее данные
+                        if (t) i.Output();
+                    }
+                }
+                else if (s == "3")
+                {
+                    // Выбор 3: Выход из программы
+                    break;
+                }
+                else
+                {
+                    
+                    Console.WriteLine("Несуществующая команда");
+                }
+
+                // Задержка перед возвращением в меню
+                Console.Write("Нажмите Enter, чтобы вернуться в меню");
+                Console.ReadLine();
+            }
+        }
+
+        
+        public class Cars
+        {
+            // Поля для хранения данных о машине
+            public string brand;
+            public string date;
+            public string color;
+            public string country;
+
+            
+            public Cars(string[] a)
+            {
+               
+                brand = a[0];
+                date = a[1];
+                color = a[2];
+                country = a[3];
+            }
+
+            
+            public void Output()
+            {
+                
+                Console.WriteLine($"марка: {brand}; год выпуска: {date}; цвет: {color}; страна выпуска: {country}");
+            }
+        }
+    }
+}
