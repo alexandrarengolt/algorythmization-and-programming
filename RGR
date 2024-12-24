@@ -32,7 +32,7 @@ namespace ConsoleApp1
             for (int i = 1; i < count - 1; i++)
             {
                 char operand = Convert.ToChar(lnArr[i].Split(' ')[0]);
-                string t = lineArr[i].Split(' ')[1];
+                string t = lnArr[i].Split(' ')[1];
                 if (t != "x")
                 {
                     number = Convert.ToInt32(temp);
