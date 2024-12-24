@@ -35,7 +35,7 @@ namespace ConsoleApp1
                 string t = lnArr[i].Split(' ')[1];
                 if (t != "x")
                 {
-                    number = Convert.ToInt32(temp);
+                    number = Convert.ToInt32(t);
                     if (operand == '+') { numRes += number; }
                     if (operand == '*') { numRes *= number; cntX *= number; }
                     if (operand == '-') { numRes -= number; }
