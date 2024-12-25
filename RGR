@@ -77,7 +77,7 @@ namespace ConsoleApp1
             int year = Convert.ToInt32(arr[0]);
             int month = Convert.ToInt32(arr[1]);
             int day = Convert.ToInt32(arr[2]);
-            DateTrm date = new DateTrm (year, month, day);
+            DateTime date = new DateTime (year, month, day);
 
             Console.Write("Конечная дата: ");
             string secline = Console.ReadLine();
@@ -85,7 +85,7 @@ namespace ConsoleApp1
             int syear = Convert.ToInt32(secarr[0]);
             int smonth = Convert.ToInt32(secarr[1]);
             int sday = Convert.ToInt32(secarr[2]);
-            DateTrm sdate = new DateTrm (syear, smonth, sday);
+            DateTime sdate = new DateTime (syear, smonth, sday);
             Console.Write("Временной промежуток между началом и концом: ");   
             int a = sdate.Subtract(date).Days +1; //считаем сколько прошло
             Console.WriteLine(a);
