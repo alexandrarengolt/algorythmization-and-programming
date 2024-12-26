@@ -73,7 +73,7 @@ namespace ConsoleApp1
         {
             Console.Write("Начальная дата: ");
             string line = Console.ReadLine();
-            string[] arr = line.Split(' ');
+            string[] arr = line.Split('.');
             int year = Convert.ToInt32(arr[0]);
             int month = Convert.ToInt32(arr[1]);
             int day = Convert.ToInt32(arr[2]);
@@ -81,7 +81,7 @@ namespace ConsoleApp1
 
             Console.Write("Конечная дата: ");
             string secline = Console.ReadLine();
-            string[] secarr = secline.Split(' ');
+            string[] secarr = secline.Split('.');
             int syear = Convert.ToInt32(secarr[0]);
             int smonth = Convert.ToInt32(secarr[1]);
             int sday = Convert.ToInt32(secarr[2]);
