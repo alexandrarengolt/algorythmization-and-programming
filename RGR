@@ -1,4 +1,4 @@
-//Задача Угадай число
+//Задача Отгадай число
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -108,108 +108,106 @@ namespace ConsoleApp1
     }
 }
 //Задача Зельеваренье
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-
+using System; 
+using System.IO; 
+ 
 namespace ConsoleApp1 
-{
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-        const int maxActs = 100; // ограничение по действиям
-        string[][] acts = new string[maxActs][];
-        int actsCount = 0; 
-        string start = "";
-
-        Console.WriteLine("Введите действия('END'в конце ввода):");
-
-        while (true)
-        {
-            string act = Console.ReadLine();
-
-            if (act.Equals("END", StringComparison.OrdinalIgnoreCase))
-            {
-                break; // Завершаем ввод при вводе "END"
-            }
-
-            // Задаём действие
-            string[] prt = act.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            if (prt.Length == 0)
-            {
-                Console.WriteLine("Введите команду и ингредиенты, которые хотите использовать:");
-                continue;
-            }
-
-            string comm = prt[0]; // Команда
-            string[] stuff = new string[prt.Length - 1]; // Ингредиенты
-            Array.Copy(prt, 1, stuff, 0, prt.Length - 1);
-
-            // Сохраняем команду и ингредиенты в массив действий
-            if (actsCount < maxActs)
-            {
-                acts[actsCount] = new string[stuff.Length + 1];
-                acts[actsCount][0] = comm; // Сохраняем команду
-                Array.Copy(stuff, 0, acts[actsCount], 1, stuff.Length); // Копируем ингредиенты
-                actsCount++;
-            }
-            else
-            {
-                Console.WriteLine("Превышен лимит действий.");
-                continue;
-            }
-        }
-
-        // Создаем заклинание
-        if (actsCount > 0)
-        {
-            string spell = string.Empty;
-            for (int i = 0; i < actsCount; i++)
-            {
-                string command = acts[i][0].ToUpper(); // Команда 
-                string  = string.Join("", acts[i], 1, acts[i].Length - 1); // Ингредиенты 
-
-                switch (command)
-                {
-                    case "MIX":
-                        spell += stuff2 + "XM";
-                        start += "MX";
-                        break;
-                    case "WATER":
-                        spell += stuff2 + "TW";
-                        start += "WT";
-                        break;
-                    case "DUST":
-                        spell += stuff2 + "TD";
-                        start += "DT"; 
-                        break;
-                    case "FIRE":
-                        spell += stuff2 + "RF";
-                        start += "FR";
-                        break;
-                    default:
-                        Console.WriteLine("Неизвестная команда: " + command);
-                        break;
-                }
-            }
-
-            spell = start + spell;
-            Console.WriteLine($"Заклинание: {spell}");
-        }
-        else
-        {
-            Console.WriteLine("Вы ничего не ввели.");
-        }
-    }
+{ 
+    internal class Program 
+    { 
+        static void Main(string[] args) 
+        { 
+            const int maxActs = 100; 
+            string[][] acts = new string[maxActs][]; 
+            int actsCount = 0; 
+            string start = ""; 
+ 
+             Console.WriteLine("Чтение действий из файла input.txt"); 
+            try 
+            { 
+                using (StreamReader reader = new StreamReader("C:\\Users\Пользователь\Desktop\РГР\Зельеварение\input1.txt")) 
+                { 
+                    string line; 
+                    while ((line = reader.ReadLine()) != null) 
+                    { 
+                        string[] parts = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries); 
+                       if (parts.Length == 0) 
+                         { 
+                             Console.WriteLine("Неверный ввод команды, строка проигнорирована"); 
+                             continue; 
+                         } 
+ 
+                        string command = parts[0]; 
+                         string[] stuff = new string[parts.Length - 1]; 
+                         Array.Copy(parts, 1, stuff, 0, parts.Length - 1); 
+ 
+                        if (actsCount < maxActs) 
+                         { 
+                             acts[actsCount] = new string[stuff.Length + 1]; 
+                             acts[actsCount][0] = command; 
+                             Array.Copy(stuff, 0, acts[actsCount], 1, stuff.Length); 
+                             actsCount++; 
+                         } 
+                         else 
+                         { 
+                            Console.WriteLine("Превышен лимит действий. Дальнейший ввод проигнорирован."); 
+                            break; 
+                        } 
+                    } 
+                } 
+ 
+                if (actsCount > 0) 
+                { 
+                    string spell = string.Empty; 
+                    for (int i = 0; i < actsCount; i++) 
+                    { 
+                       string command = acts[i][0].ToUpper(); 
+                         string ingredients = string.Join("", acts[i], 1, acts[i].Length - 1); 
+ 
+ 
+                        switch (command) 
+                        { 
+                            case "MIX": 
+                                spell += ingredients + "XM"; 
+                                start += "MX"; 
+                                break; 
+                            case "WATER": 
+                                spell += ingredients + "TW"; 
+                                start += "WT"; 
+                                break; 
+                            case "DUST": 
+                                spell += ingredients + "TD"; 
+                                start += "DT"; 
+                                break; 
+                            case "FIRE": 
+                                spell += ingredients + "RF"; 
+                                start += "FR"; 
+                                break; 
+                            default: 
+                                Console.WriteLine("Неизвестная команда: " + command); 
+                                break; 
+                        } 
+                    } 
+ 
+                    spell = start + spell; 
+                    Console.WriteLine($"Заклинание: {spell}"); 
+                } 
+                else 
+                { 
+                    Console.WriteLine("Файл пуст или нет данных для формирования заклинания."); 
+                } 
+            } 
+            catch (FileNotFoundException) 
+            { 
+                 Console.WriteLine("Файл input.txt не найден."); 
+            } 
+            catch (Exception ex) 
+            { 
+               Console.WriteLine($"Ошибка при чтении файла: {ex.Message}"); 
+            } 
+        } 
+    } 
 }
-
 //Задача Упаковки молока
 using System;
 using System.Collections.Generic;
