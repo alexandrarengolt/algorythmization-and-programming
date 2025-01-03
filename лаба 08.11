@@ -1,0 +1,106 @@
+using System;
+
+namespace ConsoleApp1
+{
+    public class Stolb
+    {
+        private int sum;
+        private int mult;
+
+        public Stolb(int sum, int mult)
+        {
+            this.sum = sum;
+            this.mult = mult;
+        }
+
+        static public bool Compare(Stolb s1, Stolb s2)
+        {
+            return s1.sum == s2.sum && s1.mult == s2.mult;
+        }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[,] array = new[,] {
+                { 1, -2, 3, 6, 5 },
+                { 6, 7, 8, 11, 10 },
+                { 11, 10, 9, 1, 0 },
+                { 5, 6, 9, 5, 7 }
+            };
+            int numCols = array.GetLength(1);
+            Stolb[] stolbArray = new Stolb[numCols]; // Массив для объектов Stolb
+
+            for (int i = 0; i < numCols; i++)
+            {
+                int sum = 0;
+                int mult = 1;
+                for (int j = 0; j < array.GetLength(0); j++)
+                {
+                    sum += array[j, i];
+                    mult *= array[j, i];
+                }
+                stolbArray[i] = new Stolb(sum, mult);
+                Console.WriteLine($"{sum},{mult}");
+            }
+
+             // Поиск дубликатов столбцов (без List)
+            for (int i = 0; i < numCols - 1; i++)
+            {
+                for (int j = i + 1; j < numCols; j++)
+                {
+                    if (Stolb.Compare(stolbArray[i], stolbArray[j]))
+                    {
+                        Console.WriteLine($" {i}, {j}");
+                    }
+                }
+            }
+
+            int mn = int.MaxValue;
+            int mx = int.MinValue;
+            int mn_Index = 0;
+            int mx_Index = 0;
+
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    if (array[i, j] < mn)
+                    {
+                        mn = array[i, j];
+                        mn_Index = j;
+                    }
+                    if (array[i, j] > mx)
+                    {
+                        mx = array[i, j];
+                        mx_Index = j;
+                    }
+                }
+            }
+            Console.WriteLine($"{mn},{mn_Index}, {mx},{mx_Index}");
+            int[] c = new int[array.GetLength(0)];
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                c[i] = array[i, mn_Index];
+                Console.WriteLine(array[i, mn_Index]);
+            }
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                array[i, mn_Index] = array[i, mx_Index];
+            }
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                array[i, mx_Index] = c[i];
+            }
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    Console.Write(array[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
