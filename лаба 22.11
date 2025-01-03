@@ -1,0 +1,57 @@
+using System;
+using System.Linq;
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        public static int[] Enter()
+        {
+            Console.WriteLine("Введите числа: ");
+            string s = Console.ReadLine();
+            string[] p = s.Split(' ');
+            int[] m = Array.ConvertAll(p, int.Parse);
+            return m;
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Введите количество строк: ");
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[][] array = new int[n][];
+            for (int i = 0; i < n; i++)
+            {
+                array[i] = Enter(); 
+            }
+            Console.Write("1) ");
+            for (int i = 0; i < n; i++)
+            {
+                int mx = array[i].Max();
+                if (2 * mx > array[i].Sum())
+                {
+                    Console.Write(i + " ");
+                }
+            }
+            Console.WriteLine();
+            for (int i = 0; i < n; i++)
+            {
+                bool flag = false;
+                for (int j = 0; j < array[i].Length - 1; j++)
+                {
+                     if (array[i][j + 1] < array[i][j])
+                    {
+                        flag = true;
+                        break; // Выходим из внутреннего цикла, как только нашли убывание
+                    }
+                }
+              if (flag)
+                {
+                    Console.WriteLine("В строке есть убывающая подпоследовательность");
+                }
+                else
+                {
+                    Console.WriteLine("В строке нет убывающей подпоследовательности");
+                }
+            }
+        }
+    }
+}
