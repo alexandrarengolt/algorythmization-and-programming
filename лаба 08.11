@@ -45,7 +45,7 @@ namespace ConsoleApp1
                 Console.WriteLine($"{sum},{mult}");
             }
 
-             // Поиск дубликатов столбцов (без List)
+             // Поиск дубликатов столбцов 
             for (int i = 0; i < numCols - 1; i++)
             {
                 for (int j = i + 1; j < numCols; j++)
