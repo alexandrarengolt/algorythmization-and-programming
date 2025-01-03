@@ -1,92 +1,83 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System;
+using System.Linq;
 
-// void ArrayPrinting(int[] arr) {
-//   Console.WriteLine("--- Вывод массива ---");
-//   for(int i = 0; i < arr.Length; i++) {
-//       Console.WriteLine(arr[i]);
-//   }
-// }
-
-
-// // Задание 1
-// string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-// string line = Console.ReadLine().ToUpper();
-// int[] charactersCount = new int[26];
-
-// for (int i = 1; i < line.Length - 1; i++)
-// {
-// 	if (line[i - 1] == 'A' && line[i + 1] == 'B')
-// 	{
-// 		charactersCount[char.ToUpper(line[i]) - 65]++;
-// 	}
-// }
-
-
-// int maxElement = -100;
-// int maxIndex = 0;
-// for (int i = 0; i < charactersCount.Length; i++)
-// {
-// 	if (charactersCount[i] > maxElement)
-// 	{
-// 		maxElement = charactersCount[i];
-// 		maxIndex = i;
-// 	}
-// }
-
-// Console.WriteLine("---");
-// Console.WriteLine(alphabet[maxIndex]);
-
-
-// Задание 2
-
-void CheckString(string str)
+namespace ConsoleApp1
 {
-	string fixedLine = str.ToLower();
-	fixedLine = fixedLine.Replace("abc", "3");
-	fixedLine = fixedLine.Replace("ab", "2");
-	fixedLine = fixedLine.Replace("a", "1");
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // Задание 1
+            string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            Console.WriteLine("Введите строку:");
+            string line1 = Console.ReadLine().ToUpper();
+            int[] symbolsCount = new int[26];
 
-	int MaxLength = -10000; 
-	int TempLength = 0;
-	bool isUsed = false;
-	for (int i = 0; i < fixedLine.Length; i++)
-	{
-		if(isUsed)
-		{
-			MaxLength = Math.Max(MaxLength, TempLength);
-			TempLength = 0;
-			isUsed = false;
-		}
+            for (int i = 1; i < line1.Length - 1; i++)
+            {
+                if ((line1[i - 1] == 'A' || line1[i - 1] == 'a') && (line1[i + 1] == 'B' || line1[i + 1] == 'b'))
+                {
+                    symbolsCount[char.ToUpper(line1[i]) - 65]++;
+                }
+            }
+            int maxElement = -100;
+            int maxIndex = 0;
+            for (int i = 0; i < symbolsCount.Length; i++)
+            {
+                if (symbolsCount[i] > maxElement)
+                {
+                    maxElement = symbolsCount[i];
+                    maxIndex = i;
+                }
+            }
+            Console.WriteLine($"Самый частый символ в комбинации a*b: {alphabet[maxIndex]}");
 
-		switch (fixedLine[i])
-		{
-			case '3':
-				TempLength += 3;
-				break;
-			case '2':
-				TempLength += 2;
-				isUsed = true;
-				break;
-			case '1':
-				TempLength += 1;
-				isUsed = true;
-				break;
-			default:
-				MaxLength = Math.Max(MaxLength, TempLength);
-				TempLength = 0;
-				break;
-		}
-	}
+            // Задание 2
+            Console.WriteLine("Введите строку:");
+            string line2 = Console.ReadLine();
 
-	MaxLength = Math.Max(MaxLength, TempLength);
-	Console.WriteLine(MaxLength);
+            CheckString(line2);
+
+            string[] lines = { "ababab", "abcaba", "aababc", "abcabc", "abcabca", "abcabcab", "abcabcc", "ccaabcbcababcabc" };
+            Console.WriteLine("Результаты для массива строк:");
+            foreach (string line in lines)
+            {
+                CheckString(line);
+            }
+        }
+
+        static void CheckString(string str)
+        {
+            string newLine = str.ToLower();
+            newLine = newLine.Replace("abc", "3");
+            newLine = newLine.Replace("ab", "2");
+            newLine = newLine.Replace("a", "1");
+
+            int maxLength = 0;
+            int currentLength = 0;
+
+            for (int i = 0; i < newLine.Length; i++)
+            {
+                switch (newLine[i])
+                {
+                    case '3':
+                        currentLength += 3;
+                        break;
+                    case '2':
+                        currentLength += 2;
+                        break;
+                    case '1':
+                        currentLength += 1;
+                        break;
+                    default:
+                        maxLength = Math.Max(maxLength, currentLength);
+                        currentLength = 0;
+                        break;
+                }
+            }
+            maxLength = Math.Max(maxLength, currentLength);
+            Console.WriteLine($"Максимальная длина подпоследовательности: {maxLength}");
+        }
+    }
 }
 
-// string line = Console.ReadLine();
-// CheckString(line)
-
-string[] line = ["ababab", "abcaba", "aababc", "abcabc", "abcabca", "abcabcab", "abcabcc", "ccaabcbcababcabc"]; // 2, 5, 3, 6, 7, 8, 6, 6
-for (int i = 0; i < line.Length; i++)
-{
-	CheckString(line[i]);
-}
