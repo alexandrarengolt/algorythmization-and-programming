@@ -20,13 +20,13 @@ namespace PhoneBook
         }
     }
 
-    class Number
+    class PNumber
     {
         public long PhoneNumber { get; set; }
         public string Operator { get; set; }
         public int Year { get; set; }
 
-        public Number(long num, string oper, int year)
+        public PNumber(long num, string oper, int year)
         {
             PhoneNumber = num;
             Operator = oper;
@@ -41,7 +41,7 @@ namespace PhoneBook
 
     class Program
     {
-        public static void NumChoice(Users[] users, Number[] numbers, long num)
+        public static void NumSearch(Users[] users, PNumber[] numbers, long num)
         {
             foreach (var number in numbers)
             {
@@ -64,7 +64,7 @@ namespace PhoneBook
             }
         }
 
-        public static void OperChoice(Users[] users, Number[] numbers, string oper)
+        public static void OperSearch(Users[] users, PNumber[] numbers, string oper)
         {
             foreach (var number in numbers)
             {
@@ -78,8 +78,8 @@ namespace PhoneBook
                         {
                             if (userNum == number.PhoneNumber)
                             {
-                                user.ShowUserData();
-                                number.ShowNumberData();
+                                user.UserInfo();
+                                number.NumberInfo();
                             }
                         }
                     }
@@ -87,7 +87,7 @@ namespace PhoneBook
             }
         }
 
-        public static void YearChoice(Users[] users, Number[] numbers, int year)
+        public static void YearSearch(Users[] users, PNumber[] numbers, int year)
         {
             foreach (var number in numbers)
             {
@@ -101,8 +101,8 @@ namespace PhoneBook
                         {
                             if (userNum == number.PhoneNumber)
                             {
-                                user.ShowUserData();
-                                number.ShowNumberData();
+                                user.UserInfo();
+                                number.NumberInfo();
                             }
                         }
                     }
@@ -113,28 +113,28 @@ namespace PhoneBook
         static void Main()
         {
             Console.WriteLine("Введите количество пользователей: ");
-            int n = Convert.ToInt32(Console.ReadLine());
+            int a = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите суммарное количество номеров у всех пользователей:");
-            int d = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите общее количество номеров у всех пользователей:");
+            int b = Convert.ToInt32(Console.ReadLine());
 
-            Users[] users = new Users[n];
-            Number[] numbers = new Number[d];
-            int numCounter = 0;
+            Users[] users = new Users[a];
+            PNumber[] numbers = new PNumber[b];
+            int count = 0;
 
             while (true)
             {
-                //Console.Clear();
+                
                 Console.WriteLine("1. Создать пользователей");
-                Console.WriteLine("2. Информация о пользователях(выборка)");
+                Console.WriteLine("2. Информация о пользователях");
                 Console.WriteLine("3. Выход");
 
-                int choice = Convert.ToInt32(Console.ReadLine());
+                int variant = Convert.ToInt32(Console.ReadLine());
 
 
-                if (choice == 1)
+                if (variant == 1)
                 {
-                    for (int j = 0; j < n; j++)
+                    for (int j = 0; j < a; j++)
                     {
                         Console.WriteLine("Введите ФИО:");
                         string name = Console.ReadLine();
@@ -145,7 +145,7 @@ namespace PhoneBook
                         Console.WriteLine("Введите количество номеров телефона:");
                         int phoneCount = Convert.ToInt32(Console.ReadLine());
 
-                        if (numCounter + phoneCount > d)
+                        if (count + phoneCount > b)
                         {
                             Console.WriteLine("Превышено количество номеров телефона!");
                             break;
@@ -165,11 +165,11 @@ namespace PhoneBook
                             int contractYear = Convert.ToInt32(Console.ReadLine());
 
                             users[j].Numbers[i] = phoneNum;
-                            numbers[numCounter++] = new Number(phoneNum, operatorName, contractYear);
+                            numbers[count++] = new PNumber(phoneNum, operatorName, contractYear);
                         }
                     }
                 }
-                else if (choice == 2)
+                else if (variant == 2)
                 {
                     Console.WriteLine("1. Поиск по номеру телефона");
                     Console.WriteLine("2. Поиск по оператору связи");
@@ -181,22 +181,22 @@ namespace PhoneBook
                     {
                         Console.WriteLine("Введите номер телефона:");
                         long phoneNum = Convert.ToInt64(Console.ReadLine());
-                        NumChoice(users, numbers, phoneNum);
+                        NumSearch(users, numbers, phoneNum);
                     }
                     else if (searchOption == 2)
                     {
                         Console.WriteLine("Введите оператора связи:");
                         string operatorName = Console.ReadLine();
-                        OperChoice(users, numbers, operatorName);
+                        OperSearch(users, numbers, operatorName);
                     }
                     else if (searchOption == 3)
                     {
                         Console.WriteLine("Введите год заключения контракта:");
                         int year = Convert.ToInt32(Console.ReadLine());
-                        YearChoice(users, numbers, year);
+                        YearSearch(users, numbers, year);
                     }
                 }
-                else if (choice == 3)
+                else if (variant == 3)
                 {
                     break;
                 }
@@ -208,3 +208,4 @@ namespace PhoneBook
         }
     }
 }
+
