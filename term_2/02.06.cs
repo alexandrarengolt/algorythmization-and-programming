@@ -1,7 +1,6 @@
 using System;
 using System.Runtime.ExceptionServices;
 using System.Xml.Linq;
-
 namespace lab
 {
     unsafe struct Student
